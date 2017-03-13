@@ -1,0 +1,268 @@
+<html>
+<head>
+<title>main.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,0); }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+.s5 { color: rgb(0,0,128); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+main.cpp</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/* 
+ * Created by Pratik Sawant 
+ */</span><span class="s1"> 
+ 
+</span><span class="s2">#include</span><span class="s3"> &lt;iostream&gt;</span><span class="s1"> 
+</span><span class="s2">#include</span><span class="s3"> &lt;string.h&gt;</span><span class="s1"> 
+</span><span class="s2">#define </span><span class="s1">max </span><span class="s4">20</span><span class="s1"> 
+ 
+</span><span class="s5">using namespace </span><span class="s1">std; 
+ 
+</span><span class="s5">class </span><span class="s1">node 
+{ 
+</span><span class="s5">public</span><span class="s1">: 
+    node *next; 
+    </span><span class="s5">char </span><span class="s1">city[</span><span class="s4">30</span><span class="s1">]; 
+    </span><span class="s5">float </span><span class="s1">time,fuel; 
+    node() 
+    { 
+        time=fuel=</span><span class="s4">0</span><span class="s1">; 
+        strcpy(city,</span><span class="s3">&quot; &quot;</span><span class="s1">); 
+    } 
+}; 
+ 
+</span><span class="s5">template</span><span class="s1">&lt;</span><span class="s5">class </span><span class="s1">T&gt; 
+</span><span class="s5">class </span><span class="s1">Stack 
+{ 
+    T data[max]; 
+    </span><span class="s5">int </span><span class="s1">top; 
+</span><span class="s5">public</span><span class="s1">: 
+    Stack() 
+    { 
+        top=-</span><span class="s4">1</span><span class="s1">; 
+    } 
+     
+    </span><span class="s5">int </span><span class="s1">isEmpty() 
+    { 
+        </span><span class="s5">return</span><span class="s1">((top==-</span><span class="s4">1</span><span class="s1">)?</span><span class="s4">1</span><span class="s1">:</span><span class="s4">0</span><span class="s1">); 
+    } 
+     
+     
+    </span><span class="s5">int </span><span class="s1">isFull() 
+    { 
+        </span><span class="s5">return</span><span class="s1">((top==max-</span><span class="s4">1</span><span class="s1">)?</span><span class="s4">1</span><span class="s1">:</span><span class="s4">0</span><span class="s1">); 
+    } 
+     
+    </span><span class="s5">void </span><span class="s1">push(T x) 
+    { 
+        </span><span class="s5">if</span><span class="s1">(!isFull()) 
+            data[++top]=x; 
+        </span><span class="s5">else</span><span class="s1"> 
+            cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Stack is Full</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">; 
+    } 
+     
+    T pop() 
+    { 
+        </span><span class="s5">if</span><span class="s1">(!isEmpty()) 
+            </span><span class="s5">return </span><span class="s1">data[top--]; 
+        </span><span class="s5">else</span><span class="s1"> 
+            cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Stack is Empty</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">; 
+    } 
+}; 
+ 
+</span><span class="s5">class </span><span class="s1">Flight 
+{ 
+</span><span class="s5">public</span><span class="s1">: 
+    node *head[</span><span class="s4">10</span><span class="s1">],*temp,*temp1; 
+    </span><span class="s5">int </span><span class="s1">i,j,s; 
+    </span><span class="s5">bool </span><span class="s1">visited[</span><span class="s4">10</span><span class="s1">]; 
+    </span><span class="s0">//float timevar,fuelvar;</span><span class="s1"> 
+    </span><span class="s5">char </span><span class="s1">source[</span><span class="s4">20</span><span class="s1">],dest[</span><span class="s4">20</span><span class="s1">],ch; 
+    </span><span class="s5">void </span><span class="s1">userInput(</span><span class="s5">int </span><span class="s1">n); 
+    </span><span class="s5">void </span><span class="s1">display(</span><span class="s5">int</span><span class="s1">); 
+    </span><span class="s5">int </span><span class="s1">index(</span><span class="s5">char </span><span class="s1">check_City[</span><span class="s4">20</span><span class="s1">],</span><span class="s5">int </span><span class="s1">n); 
+    </span><span class="s5">void </span><span class="s1">display_Tabular(</span><span class="s5">int</span><span class="s1">); 
+    </span><span class="s5">void </span><span class="s1">dfs(</span><span class="s5">char </span><span class="s1">str[</span><span class="s4">20</span><span class="s1">],</span><span class="s5">int </span><span class="s1">n); 
+    </span><span class="s5">void </span><span class="s1">dfs_it(); 
+     
+    Flight(</span><span class="s5">int </span><span class="s1">n) 
+    { 
+        </span><span class="s5">for</span><span class="s1">(i=</span><span class="s4">0</span><span class="s1">;i&lt;n;i++) 
+            head[i]=NULL; 
+        </span><span class="s5">for</span><span class="s1">(i=</span><span class="s4">0</span><span class="s1">;i&lt;n;i++) 
+            visited[i]=</span><span class="s4">0</span><span class="s1">; 
+        </span><span class="s0">//time=fuel=0;</span><span class="s1"> 
+         
+    } 
+}; 
+ 
+</span><span class="s5">void </span><span class="s1">Flight :: userInput(</span><span class="s5">int </span><span class="s1">n) 
+{ 
+    cout&lt;&lt;</span><span class="s3">&quot;Enter the names of the cities: </span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">; 
+    </span><span class="s5">for</span><span class="s1">(i=</span><span class="s4">0</span><span class="s1">;i&lt;n;i++) 
+    { 
+        head[i]=</span><span class="s5">new </span><span class="s1">node; 
+        head[i]-&gt;next=NULL; 
+        head[i]-&gt;time=head[i]-&gt;fuel=</span><span class="s4">0</span><span class="s1">; 
+        </span><span class="s0">//cout&lt;&lt;&quot;Enter city &quot;&lt;&lt;i+1;</span><span class="s1"> 
+        cin&gt;&gt;head[i]-&gt;city; 
+    } 
+     
+    </span><span class="s5">for</span><span class="s1">(</span><span class="s5">int </span><span class="s1">k=</span><span class="s4">0</span><span class="s1">;k&lt;</span><span class="s4">4</span><span class="s1">;k++) 
+    { 
+        cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Enter source and destination: &quot;</span><span class="s1">; 
+        cin&gt;&gt;source&gt;&gt;dest; 
+        s=index(source,n); 
+        cout&lt;&lt;s&lt;&lt;endl; 
+         
+        temp=head[s]; 
+        </span><span class="s5">while</span><span class="s1">(temp-&gt;next!=NULL) 
+            temp=temp-&gt;next; 
+         
+        temp1=</span><span class="s5">new </span><span class="s1">node; 
+        strcpy(temp1-&gt;city,dest); 
+        cout&lt;&lt;</span><span class="s3">&quot;Enter time of flight: &quot;</span><span class="s1">; 
+        cin&gt;&gt;temp1-&gt;time; 
+        cout&lt;&lt;</span><span class="s3">&quot;Enter fuel consumption for the flight: &quot;</span><span class="s1">; 
+        cin&gt;&gt;temp1-&gt;fuel; 
+        temp1-&gt;next=NULL; 
+        temp-&gt;next=temp1; 
+    } 
+     
+} 
+ 
+</span><span class="s5">void </span><span class="s1">Flight :: dfs(</span><span class="s5">char </span><span class="s1">str[],</span><span class="s5">int </span><span class="s1">n) 
+{ 
+    node *p; 
+    </span><span class="s5">int </span><span class="s1">x; 
+    cout&lt;&lt;str&lt;&lt;endl; 
+     
+    x=index(str,n); 
+    p=head[x]; 
+    visited[x]=</span><span class="s4">1</span><span class="s1">; 
+    p=p-&gt;next; 
+     
+    </span><span class="s5">while</span><span class="s1">(p!=NULL) 
+    { 
+        x=index(p-&gt;city,n); 
+        </span><span class="s5">if</span><span class="s1">(!visited[x]) 
+            dfs(p-&gt;city,n); 
+        p=p-&gt;next; 
+    } 
+} 
+ 
+ 
+</span><span class="s5">int </span><span class="s1">Flight :: index(</span><span class="s5">char </span><span class="s1">check_City[],</span><span class="s5">int </span><span class="s1">n) 
+{ 
+    </span><span class="s5">int </span><span class="s1">k; 
+    </span><span class="s5">for</span><span class="s1">(k=</span><span class="s4">0</span><span class="s1">;k&lt;n;k++) 
+    { 
+        </span><span class="s5">if</span><span class="s1">(strcmp(head[k]-&gt;city,check_City)==</span><span class="s4">0</span><span class="s1">) 
+        { 
+            </span><span class="s5">return </span><span class="s1">k; 
+        } 
+    } 
+} 
+ 
+</span><span class="s5">void </span><span class="s1">Flight :: display(</span><span class="s5">int </span><span class="s1">n) 
+{ 
+    cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n\n</span><span class="s3">Flights :&quot;</span><span class="s1">; 
+    </span><span class="s5">for </span><span class="s1">(i=</span><span class="s4">0</span><span class="s1">;i&lt;n;i++) 
+    { 
+        </span><span class="s5">if</span><span class="s1">(head[i]-&gt;next==NULL) 
+            </span><span class="s5">continue</span><span class="s1">; 
+        </span><span class="s5">else</span><span class="s1"> 
+        { 
+            temp=head[i]-&gt;next; 
+            </span><span class="s5">while</span><span class="s1">(temp!=NULL) 
+            { 
+                cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Source: &quot;</span><span class="s1">&lt;&lt;head[i]-&gt;city; 
+                cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Destination: &quot;</span><span class="s1">&lt;&lt;temp-&gt;city; 
+                cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Time: &quot;</span><span class="s1">&lt;&lt;temp-&gt;time; 
+                cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Fuel: &quot;</span><span class="s1">&lt;&lt;temp-&gt;fuel&lt;&lt;endl; 
+                </span><span class="s0">//cout&lt;&lt;&quot;\n----------------------------------&quot;;</span><span class="s1"> 
+                temp=temp-&gt;next; 
+            } 
+        } 
+    } 
+} 
+ 
+</span><span class="s5">void </span><span class="s1">Flight :: display_Tabular(</span><span class="s5">int </span><span class="s1">n) 
+{ 
+    cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">--------------------------------Flights------------------------------------------------&quot;</span><span class="s1">; 
+    cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Source city&quot;</span><span class="s1">&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\t\t\t</span><span class="s3">&quot;</span><span class="s1">&lt;&lt;</span><span class="s3">&quot;Destination&quot;</span><span class="s1">&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\t\t\t</span><span class="s3">&quot;</span><span class="s1">&lt;&lt;</span><span class="s3">&quot;Time&quot;</span><span class="s1">&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\t\t\t</span><span class="s3">&quot;</span><span class="s1">&lt;&lt;</span><span class="s3">&quot;Fuel&quot;</span><span class="s1">&lt;&lt;endl; 
+    cout&lt;&lt;</span><span class="s3">&quot;-----------------------------------------------------------------------------------------</span><span class="s5">\n</span><span class="s3">&quot;</span><span class="s1">; 
+    </span><span class="s5">for</span><span class="s1">(i=</span><span class="s4">0</span><span class="s1">;i&lt;n;i++) 
+    { 
+        </span><span class="s5">if</span><span class="s1">(head[i]-&gt;next==NULL) 
+            </span><span class="s5">continue</span><span class="s1">; 
+        </span><span class="s5">else</span><span class="s1"> 
+        { 
+            temp=head[i]-&gt;next; 
+            </span><span class="s5">while</span><span class="s1">(temp!=NULL) 
+            { 
+                cout&lt;&lt;head[i]-&gt;city&lt;&lt;i&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\t\t\t\t</span><span class="s3">&quot;</span><span class="s1">&lt;&lt;temp-&gt;city&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\t\t\t\t</span><span class="s3">&quot;</span><span class="s1">&lt;&lt;temp-&gt;time&lt;&lt;</span><span class="s3">&quot;hrs&quot;</span><span class="s1">&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\t\t\t</span><span class="s3">&quot;</span><span class="s1">&lt;&lt;temp-&gt;fuel; 
+                cout&lt;&lt;endl; 
+                temp=temp-&gt;next; 
+            } 
+        } 
+    } 
+} 
+ 
+</span><span class="s0">/*void Flight :: dfs_it() 
+{ 
+    node *p, *q; 
+    Stack &lt;node *&gt;t; 
+    int k; 
+    t.push(head[0]); 
+    cout&lt;&lt;head[0]-&gt;city&lt;&lt;&quot; &quot;; 
+    do 
+    { 
+        p=t.pop(); 
+        cout&lt;&lt;p-&gt;city&lt;&lt;&quot; &quot;; 
+        s=index(p-&gt;city,n); 
+        for(q=head[s];q!=NULL;q=q-&gt;next) 
+        { 
+            k=index(q-&gt;city,n); 
+            if(visited[k]==0) 
+            { 
+                t.push(q); 
+                visited[k]=1; 
+            } 
+        } 
+    }while(!t.isEmpty()); 
+}*/</span><span class="s1"> 
+ 
+</span><span class="s5">int </span><span class="s1">main() 
+{ 
+    </span><span class="s5">int </span><span class="s1">n,m; 
+    cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n</span><span class="s3">Enter how many cities do you want: &quot;</span><span class="s1">; 
+    cin&gt;&gt;n; 
+    Flight f(n); 
+    f.userInput(n); 
+    f.display(n); 
+    f.display_Tabular(n); 
+    f.display_Tabular(n); 
+     
+    cout&lt;&lt;</span><span class="s3">&quot;</span><span class="s5">\n\n</span><span class="s3">DFS TRAVERSAL: &quot;</span><span class="s1">&lt;&lt;endl; 
+    f.dfs(f.head[</span><span class="s4">0</span><span class="s1">]-&gt;city,n); 
+    f.display_Tabular(n); 
+    </span><span class="s0">//f.dfs_it();</span><span class="s1"> 
+    </span><span class="s5">return </span><span class="s4">0</span><span class="s1">; 
+} 
+ 
+ 
+</span></pre>
+</body>
+</html>
